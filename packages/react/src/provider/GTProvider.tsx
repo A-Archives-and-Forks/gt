@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import {
+import GT, {
   isSameLanguage,
   requiresTranslation,
 } from 'generaltranslation';
@@ -20,7 +20,6 @@ import {
   APIKeyMissingWarn,
   createUnsupportedLocalesWarning,
   customLoadTranslationsError,
-  devApiKeyProductionError,
   projectIdMissingWarning,
 } from '../errors/createErrors';
 import { getSupportedLocale } from '@generaltranslation/supported-locales';
@@ -31,7 +30,6 @@ import { readAuthFromEnv } from '../utils/utils';
 import fetchTranslations from '../utils/fetchTranslations';
 import useCreateInternalUseGTFunction from '../hooks/internal/useCreateInternalUseGTFunction';
 import useCreateInternalUseDictFunction from '../hooks/internal/useCreateInternalUseDictFunction';
-import { isSSREnabled } from './helpers/isSSREnabled';
 import { defaultLocaleCookieName } from '../utils/cookies';
 import loadDictionaryHelper from './helpers/loadDictionaryHelper';
 import mergeDictionaries from './helpers/mergeDictionaries';
@@ -103,6 +101,7 @@ export default function GTProvider({
   fallback?: React.ReactNode;
   [key: string]: any;
 }): React.JSX.Element {
+
   // ---------- SANITIZATION ---------- //
 
   // Read env
@@ -111,15 +110,13 @@ export default function GTProvider({
   // Locale standardization
   locales = useMemo(() => {
     return Array.from(new Set([defaultLocale, ...locales]));
-  }, [defaultLocale, locales]);
+  }, [defaultLocale, locales]); // Runs once, because these two things don't change
 
   // Get locale
   const [locale, setLocale] = useDetermineLocale({
-    defaultLocale,
-    locales,
+    defaultLocale, locales,
     locale: _locale,
-    ssr,
-    localeCookieName,
+    ssr, localeCookieName,
   });
 
   // Translation at runtime during development is enabled

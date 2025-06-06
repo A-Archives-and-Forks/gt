@@ -58,14 +58,39 @@ type GTConstructorParams = {
 
 /**
  * GT is the core driver for the General Translation library.
+ * It manages configuration including API keys, project information, and locale settings, and provides methods for
+ * translating content, formatting, and retrieving locale metadata.
  */
 class GT {
+  /**
+   * The API key for production translation requests.
+   */
   apiKey: string;
+
+  /**
+   * The API key for development or testing environments.
+   */
   devApiKey: string;
+  
+  /**
+   * The default source locale for translations (e.g., 'en-US').
+   */
   sourceLocale: string;
+  
+  /**
+   * The project identifier for translation management.
+   */
   projectId: string;
+  
+  /**
+   * The base URL for the translation API service.
+   */
   baseUrl: string;
-  customMapping: Record<string, LocaleProperties | string>;
+  
+  /**
+   * Optional custom mapping for locale properties or names.
+   */
+  customMapping: Record<string, LocaleProperties | string> | undefined;
 
   /**
    * Constructs an instance of the GT class.
@@ -82,7 +107,7 @@ class GT {
     sourceLocale = '',
     projectId = '',
     baseUrl = defaultBaseUrl,
-    customMapping = {},
+    customMapping,
   }: GTConstructorParams = {}) {
     this.apiKey = apiKey || process.env.GT_API_KEY || '';
     this.devApiKey = devApiKey || process.env.GT_DEV_API_KEY || '';
