@@ -112,6 +112,8 @@ export default function GTProvider({
     return Array.from(new Set([defaultLocale, ...locales]));
   }, [defaultLocale, locales]); // Runs once, because these two things don't change
 
+  
+  
   // Get locale
   const [locale, setLocale] = useDetermineLocale({
     defaultLocale, locales,

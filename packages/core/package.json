@@ -57,7 +57,8 @@
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
-    "fast-json-stable-stringify": "^2.1.0"
+    "fast-json-stable-stringify": "^2.1.0",
+    "intl-messageformat": "^10.7.16"
   },
   "exports": {
     ".": {
