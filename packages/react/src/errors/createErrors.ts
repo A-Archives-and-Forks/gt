@@ -32,6 +32,8 @@ export const createNestedTError = (child: any) =>
 
 export const renderingError = 'General Translation: Rendering error.';
 
+export const usingGTProviderWithSSRError = 'General Translation: You are using a gt-react <GTProvider> in a server-side framework. Add ssr={true} to <GTProvider> to avoid hydration errors.';
+
 export const dynamicTranslationError = 'Error fetching batched translations:';
 
 export const createGenericRuntimeTranslationError = (

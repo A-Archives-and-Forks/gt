@@ -1,6 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import {
-  getLocaleProperties,
   isSameLanguage,
   requiresTranslation,
 } from 'generaltranslation';
@@ -8,7 +7,6 @@ import { GTContext } from './GTContext';
 import {
   CustomLoader,
   Dictionary,
-  DictionaryObject,
   RenderMethod,
   TranslationsObject,
 } from '../types/types';
@@ -21,10 +19,8 @@ import {
   apiKeyInProductionError,
   APIKeyMissingWarn,
   createUnsupportedLocalesWarning,
-  customLoadDictionaryWarning,
   customLoadTranslationsError,
   devApiKeyProductionError,
-  dictionaryMissingWarning,
   projectIdMissingWarning,
 } from '../errors/createErrors';
 import { getSupportedLocale } from '@generaltranslation/supported-locales';
@@ -74,7 +70,7 @@ export default function GTProvider({
   cacheUrl = config?.cacheUrl || defaultCacheUrl,
   runtimeUrl = config?.runtimeUrl || defaultRuntimeApiUrl,
   renderSettings = config?.renderSettings || defaultRenderSettings,
-  ssr = config?.ssr || isSSREnabled(),
+  ssr = config?.ssr,
   localeCookieName = config?.localeCookieName || defaultLocaleCookieName,
   locale: _locale = '',
   loadDictionary,
@@ -193,10 +189,7 @@ export default function GTProvider({
     // Check: no devApiKey in production
     if (process.env.NODE_ENV === 'production' && devApiKey) {
       // When SSR is disabled, throw an error
-      if (!ssr) throw new Error(apiKeyInProductionError);
-      // When SSR is enabled, only error when detecting a dev api key
-      if (devApiKey.startsWith('gtx-dev-'))
-        throw new Error(devApiKeyProductionError);
+      if (typeof window !== 'undefined') throw new Error(apiKeyInProductionError);
     }
 
     // Check: projectId missing while using cache/runtime in dev

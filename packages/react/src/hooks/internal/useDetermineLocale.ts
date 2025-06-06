@@ -3,13 +3,14 @@ import { determineLocale } from 'generaltranslation';
 import { libraryDefaultLocale } from 'generaltranslation/internal';
 import { createUnsupportedLocaleWarning } from '../../errors/createErrors';
 import { defaultLocaleCookieName } from '../../utils/cookies';
+import { isSSREnabled } from '../../provider/helpers/isSSREnabled';
 
 export function useDetermineLocale({
   locale: _locale = '',
   defaultLocale = libraryDefaultLocale,
   locales = [],
   localeCookieName = defaultLocaleCookieName,
-  ssr = true, // when false, breaks server side rendering by accessing document and navigator on first render
+  ssr = isSSREnabled(), // when false, breaks server side rendering by accessing document and navigator on first render
 }: {
   defaultLocale: string;
   locales: string[];
