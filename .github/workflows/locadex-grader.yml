@@ -30,7 +30,7 @@ jobs:
       - name: Checkout Locadex Tests Repo
         uses: actions/checkout@v4
         with:
-          repository: SamEggert/locadex-tests
+          repository: generaltranslation/locadex-tests
           path: locadex-tests
           token: ${{ steps.generate_token.outputs.token }}
           ref: main
