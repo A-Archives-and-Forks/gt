@@ -79,7 +79,7 @@ jobs:
         timeout-minutes: 15
         run: |
           cd locadex-tests
-          npm run grader:parallel min min-dynamic
+          npm run grader:parallel -- --api-key=${{ secrets.ANTHROPIC_API_KEY }} min min-dynamic
 
       # Step 10: Wait for evaluation summary and comment
       - name: Comment Evaluation Summary
