@@ -17,8 +17,8 @@ jobs:
           app-id: ${{ secrets.LOCADEX_GRADER_APP_ID }}
           private-key: ${{ secrets.LOCADEX_GRADER_PRIVATE_KEY }}
           repositories: |
-            bot-test-public
-            grader-bot-test
+            gt
+            locadex-tests
 
       # Step 2: Checkout the current repo
       - name: Checkout Current Repo
