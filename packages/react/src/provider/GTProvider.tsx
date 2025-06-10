@@ -1,8 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import GT, {
-  isSameLanguage,
-  requiresTranslation,
-} from 'generaltranslation';
+import GT, { isSameLanguage, requiresTranslation } from 'generaltranslation';
 import { GTContext } from './GTContext';
 import {
   CustomLoader,
@@ -101,7 +98,6 @@ export default function GTProvider({
   fallback?: React.ReactNode;
   [key: string]: any;
 }): React.JSX.Element {
-
   // ---------- SANITIZATION ---------- //
 
   // Read env
@@ -112,13 +108,13 @@ export default function GTProvider({
     return Array.from(new Set([defaultLocale, ...locales]));
   }, [defaultLocale, locales]); // Runs once, because these two things don't change
 
-  
-  
   // Get locale
   const [locale, setLocale] = useDetermineLocale({
-    defaultLocale, locales,
+    defaultLocale,
+    locales,
     locale: _locale,
-    ssr, localeCookieName,
+    ssr,
+    localeCookieName,
   });
 
   // Translation at runtime during development is enabled
@@ -188,7 +184,8 @@ export default function GTProvider({
     // Check: no devApiKey in production
     if (process.env.NODE_ENV === 'production' && devApiKey) {
       // When SSR is disabled, throw an error
-      if (typeof window !== 'undefined') throw new Error(apiKeyInProductionError);
+      if (typeof window !== 'undefined')
+        throw new Error(apiKeyInProductionError);
     }
 
     // Check: projectId missing while using cache/runtime in dev

@@ -1,6 +1,6 @@
 import _isSameDialect from './isSameDialect';
 import _isSameLanguage from './isSameLanguage';
-import { _isValidLocale, _standardizeLocale } from './isValidLocale';
+import { _isValidLocale } from './isValidLocale';
 
 /**
  * Given a target locale and a source locale, determines whether a translation is required

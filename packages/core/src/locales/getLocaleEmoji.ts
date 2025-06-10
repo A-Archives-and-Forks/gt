@@ -1,6 +1,6 @@
 import { intlCache } from '../cache/IntlCache';
 import { CustomMapping, getCustomProperty } from './customLocaleMapping';
-import { _isValidLocale, _standardizeLocale } from './isValidLocale';
+import { _standardizeLocale } from './isValidLocale';
 
 /**
  * @internal
@@ -9,9 +9,7 @@ export default function _getLocaleEmoji(
   locale: string,
   customMapping?: CustomMapping
 ): string {
-
   try {
-
     const standardizedLocale = _standardizeLocale(locale);
     const localeObject = intlCache.get('Locale', standardizedLocale);
     const { language, region } = localeObject;
@@ -36,7 +34,6 @@ export default function _getLocaleEmoji(
       emojis[extrapolatedRegion] ||
       defaultEmoji
     );
-
   } catch {
     return defaultEmoji;
   }

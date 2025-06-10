@@ -18,21 +18,10 @@ import {
   _formatRelativeTime,
   _formatDateTime,
 } from './formatting/format';
-import {
-  _splitStringToContent,
-  _renderContentToString,
-} from './formatting/string_content';
-import {
-  Content,
-  JsxChildren,
-  JsxTranslationResult,
-  ContentTranslationResult,
-  TranslationError,
-  IcuTranslationResult,
-  Metadata,
-} from './types';
 import _isSameLanguage from './locales/isSameLanguage';
-import _getLocaleProperties, { LocaleProperties } from './locales/getLocaleProperties';
+import _getLocaleProperties, {
+  LocaleProperties,
+} from './locales/getLocaleProperties';
 import _getLocaleEmoji from './locales/getLocaleEmoji';
 import { _isValidLocale, _standardizeLocale } from './locales/isValidLocale';
 import { _getLocaleName } from './locales/getLocaleName';
@@ -63,7 +52,6 @@ type GTConstructorParams = {
  * translating content, formatting, and retrieving locale metadata.
  */
 class GT {
-
   /**
    * The API key for production translation requests.
    */
@@ -73,22 +61,22 @@ class GT {
    * The API key for development or testing environments.
    */
   devApiKey: string;
-  
+
   /**
    * The default source locale for translations (e.g., 'en-US').
    */
   sourceLocale: string;
-  
+
   /**
    * The project identifier for translation management.
    */
   projectId: string;
-  
+
   /**
    * The base URL for the translation API service.
    */
   baseUrl: string;
-  
+
   /**
    * Optional custom mapping for locale properties or names.
    */
@@ -138,16 +126,14 @@ class GT {
       ...metadata,
     });
   }*/
-  
+
   /**
-  * Retrieves the display name of locale code using Intl.DisplayNames.
-  *
-  * @param {string} locale - A BCP-47 locale code.
-  * @returns {string} The display name corresponding to the code.
-  */
-  getLocaleName(
-    locale: string, 
-  ): string {
+   * Retrieves the display name of locale code using Intl.DisplayNames.
+   *
+   * @param {string} locale - A BCP-47 locale code.
+   * @returns {string} The display name corresponding to the code.
+   */
+  getLocaleName(locale: string): string {
     return _getLocaleName(locale, this.sourceLocale, this.customMapping);
   }
 
@@ -157,57 +143,55 @@ class GT {
    *
    * @param locale - A string representing the locale code (e.g., 'en-US', 'fr-CA').
    * @returns The emoji representing the locale or its region, or a default emoji if no specific match is found.
-  */
-  getLocaleEmoji(
-    locale: string
-  ): string {
+   */
+  getLocaleEmoji(locale: string): string {
     return _getLocaleEmoji(locale, this.customMapping);
   }
 
   /**
-  * Generates linguistic details for a given locale code.
-  *
-  * This function returns information about the locale,
-  * script, and region of a given language code both in a standard form and in a maximized form (with likely script and region).
-  * The function provides these names in both your default language and native forms, and an associated emoji.
-  *
-  * @param {string} locale - The locale code to get properties for (e.g., "de-AT").
-  * @returns {LocaleProperties} - An object containing detailed information about the locale.
-  *
-  * @property {string} code - The full locale code, e.g., "de-AT".
-  * @property {string} name - Language name in the default display language, e.g., "Austrian German".
-  * @property {string} nativeName - Language name in the locale's native language, e.g., "Österreichisches Deutsch".
-  * @property {string} languageCode - The base language code, e.g., "de".
-  * @property {string} languageName - The language name in the default display language, e.g., "German".
-  * @property {string} nativeLanguageName - The language name in the native language, e.g., "Deutsch".
-  * @property {string} nameWithRegionCode - Language name with region in the default language, e.g., "German (AT)".
-  * @property {string} nativeNameWithRegionCode - Language name with region in the native language, e.g., "Deutsch (AT)".
-  * @property {string} regionCode - The region code from maximization, e.g., "AT".
-  * @property {string} regionName - The region name in the default display language, e.g., "Austria".
-  * @property {string} nativeRegionName - The region name in the native language, e.g., "Österreich".
-  * @property {string} scriptCode - The script code from maximization, e.g., "Latn".
-  * @property {string} scriptName - The script name in the default display language, e.g., "Latin".
-  * @property {string} nativeScriptName - The script name in the native language, e.g., "Lateinisch".
-  * @property {string} maximizedCode - The maximized locale code, e.g., "de-Latn-AT".
-  * @property {string} maximizedName - Maximized locale name with likely script in the default language, e.g., "Austrian German (Latin)".
-  * @property {string} nativeMaximizedName - Maximized locale name in the native language, e.g., "Österreichisches Deutsch (Lateinisch)".
-  * @property {string} minimizedCode - Minimized locale code, e.g., "de-AT" (or "de" for "de-DE").
-  * @property {string} minimizedName - Minimized language name in the default language, e.g., "Austrian German".
-  * @property {string} nativeMinimizedName - Minimized language name in the native language, e.g., "Österreichisches Deutsch".
-  * @property {string} emoji - The emoji associated with the locale's region, if applicable.
-  */
+   * Generates linguistic details for a given locale code.
+   *
+   * This function returns information about the locale,
+   * script, and region of a given language code both in a standard form and in a maximized form (with likely script and region).
+   * The function provides these names in both your default language and native forms, and an associated emoji.
+   *
+   * @param {string} locale - The locale code to get properties for (e.g., "de-AT").
+   * @returns {LocaleProperties} - An object containing detailed information about the locale.
+   *
+   * @property {string} code - The full locale code, e.g., "de-AT".
+   * @property {string} name - Language name in the default display language, e.g., "Austrian German".
+   * @property {string} nativeName - Language name in the locale's native language, e.g., "Österreichisches Deutsch".
+   * @property {string} languageCode - The base language code, e.g., "de".
+   * @property {string} languageName - The language name in the default display language, e.g., "German".
+   * @property {string} nativeLanguageName - The language name in the native language, e.g., "Deutsch".
+   * @property {string} nameWithRegionCode - Language name with region in the default language, e.g., "German (AT)".
+   * @property {string} nativeNameWithRegionCode - Language name with region in the native language, e.g., "Deutsch (AT)".
+   * @property {string} regionCode - The region code from maximization, e.g., "AT".
+   * @property {string} regionName - The region name in the default display language, e.g., "Austria".
+   * @property {string} nativeRegionName - The region name in the native language, e.g., "Österreich".
+   * @property {string} scriptCode - The script code from maximization, e.g., "Latn".
+   * @property {string} scriptName - The script name in the default display language, e.g., "Latin".
+   * @property {string} nativeScriptName - The script name in the native language, e.g., "Lateinisch".
+   * @property {string} maximizedCode - The maximized locale code, e.g., "de-Latn-AT".
+   * @property {string} maximizedName - Maximized locale name with likely script in the default language, e.g., "Austrian German (Latin)".
+   * @property {string} nativeMaximizedName - Maximized locale name in the native language, e.g., "Österreichisches Deutsch (Lateinisch)".
+   * @property {string} minimizedCode - Minimized locale code, e.g., "de-AT" (or "de" for "de-DE").
+   * @property {string} minimizedName - Minimized language name in the default language, e.g., "Austrian German".
+   * @property {string} nativeMinimizedName - Minimized language name in the native language, e.g., "Österreichisches Deutsch".
+   * @property {string} emoji - The emoji associated with the locale's region, if applicable.
+   */
   getLocaleProperties(locale: string): LocaleProperties {
     return _getLocaleProperties(locale, this.sourceLocale, this.customMapping);
   }
 
   /**
-  * Formats a number according to the specified locales and options.
-  * @param {Object} params - The parameters for the number formatting.
-  * @param {number} params.value - The number to format.
-  * @param {string[]} [params.locales=['en']] - The locales to use for formatting.
-  * @param {Intl.NumberFormatOptions} [params.options={}] - Additional options for number formatting.
-  * @returns {string} The formatted number.
-  */
+   * Formats a number according to the specified locales and options.
+   * @param {Object} params - The parameters for the number formatting.
+   * @param {number} params.value - The number to format.
+   * @param {string[]} [params.locales=['en']] - The locales to use for formatting.
+   * @param {Intl.NumberFormatOptions} [params.options={}] - Additional options for number formatting.
+   * @returns {string} The formatted number.
+   */
   formatNum(
     number: number,
     options?: {
@@ -219,20 +203,20 @@ class GT {
       locales: [
         ...(options?.locales || []),
         ...(this.sourceLocale ? [this.sourceLocale] : []),
-        libraryDefaultLocale
+        libraryDefaultLocale,
       ],
       options,
     });
   }
 
   /**
-  * Formats a date according to the specified languages and options.
-  * @param {Object} params - The parameters for the date formatting.
-  * @param {Date} params.value - The date to format.
-  * @param {string[]} [params.locales=['en']] - The languages to use for formatting.
-  * @param {Intl.DateTimeFormatOptions} [params.options={}] - Additional options for date formatting.
-  * @returns {string} The formatted date.
-  */
+   * Formats a date according to the specified languages and options.
+   * @param {Object} params - The parameters for the date formatting.
+   * @param {Date} params.value - The date to format.
+   * @param {string[]} [params.locales=['en']] - The languages to use for formatting.
+   * @param {Intl.DateTimeFormatOptions} [params.options={}] - Additional options for date formatting.
+   * @returns {string} The formatted date.
+   */
   formatDateTime(
     date: Date,
     options?: {
@@ -244,21 +228,21 @@ class GT {
       locales: [
         ...(options?.locales || []),
         ...(this.sourceLocale ? [this.sourceLocale] : []),
-        libraryDefaultLocale
+        libraryDefaultLocale,
       ],
       options,
     });
   }
 
   /**
-  * Formats a currency value according to the specified languages, currency, and options.
-  * @param {Object} params - The parameters for the currency formatting.
-  * @param {number} params.value - The currency value to format.
-  * @param {string} params.currency - The currency code (e.g., 'USD').
-  * @param {string[]} [params.locales=['en']] - The locale codes to use for formatting.
-  * @param {Intl.NumberFormatOptions} [params.options={}] - Additional options for currency formatting.
-  * @returns {string} The formatted currency value.
-  */
+   * Formats a currency value according to the specified languages, currency, and options.
+   * @param {Object} params - The parameters for the currency formatting.
+   * @param {number} params.value - The currency value to format.
+   * @param {string} params.currency - The currency code (e.g., 'USD').
+   * @param {string[]} [params.locales=['en']] - The locale codes to use for formatting.
+   * @param {Intl.NumberFormatOptions} [params.options={}] - Additional options for currency formatting.
+   * @returns {string} The formatted currency value.
+   */
   formatCurrency(
     value: number,
     currency: string,
@@ -272,7 +256,7 @@ class GT {
       locales: [
         ...(options?.locales || []),
         ...(this.sourceLocale ? [this.sourceLocale] : []),
-        libraryDefaultLocale
+        libraryDefaultLocale,
       ],
       options,
     });
@@ -297,7 +281,7 @@ class GT {
       locales: [
         ...(options?.locales || []),
         ...(this.sourceLocale ? [this.sourceLocale] : []),
-        libraryDefaultLocale
+        libraryDefaultLocale,
       ],
       options,
     });
@@ -325,7 +309,7 @@ class GT {
       locales: [
         ...(options?.locales || []),
         ...(this.sourceLocale ? [this.sourceLocale] : []),
-        libraryDefaultLocale
+        libraryDefaultLocale,
       ],
       options,
     });
@@ -339,17 +323,19 @@ class GT {
    * @param {string | string[]} [options.locales='en'] - The locale(s) to use for formatting.
    * @returns {string} - The formatted message string.
    */
-  formatMessage(string: string, options: {
-    variables?: Record<string, any>;
-    locales?: string[];
-  }): string {
-    return (new IntlMessageFormat(string, [
+  formatMessage(
+    string: string,
+    options: {
+      variables?: Record<string, any>;
+      locales?: string[];
+    }
+  ): string {
+    return new IntlMessageFormat(string, [
       ...(options?.locales || []),
       ...(this.sourceLocale ? [this.sourceLocale] : []),
-      libraryDefaultLocale
-    ])).format(options?.variables);
+      libraryDefaultLocale,
+    ]).format(options?.variables);
   }
-
 }
 
 // ----- LOCALE INFORMATION ----- //
@@ -447,10 +433,7 @@ export function getLocaleProperties(
  * @param customMapping - An optional custom mapping of locale codes to emojis.
  * @returns The emoji representing the locale or its region, or a default emoji if no specific match is found.
  */
-export function getLocaleEmoji(
-  locale: string,
-  customMapping?: CustomMapping
-) {
+export function getLocaleEmoji(locale: string, customMapping?: CustomMapping) {
   return _getLocaleEmoji(locale, customMapping);
 }
 

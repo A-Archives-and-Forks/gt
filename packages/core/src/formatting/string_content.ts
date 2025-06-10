@@ -5,7 +5,6 @@ import {
   _formatDateTime,
   _formatNum,
   _formatList,
-  _formatRelativeTime,
 } from './format';
 
 // Variable types mapping

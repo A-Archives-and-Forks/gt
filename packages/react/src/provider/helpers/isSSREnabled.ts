@@ -1,4 +1,4 @@
-import { usingGTProviderWithSSRError } from "../../errors/createErrors";
+import { usingGTProviderWithSSRError } from '../../errors/createErrors';
 
 export function isSSREnabled() {
   // Check for Next.js specific global objects
@@ -10,7 +10,7 @@ export function isSSREnabled() {
     return true;
   }
   if (typeof window === 'undefined') {
-    throw new Error(usingGTProviderWithSSRError)
+    throw new Error(usingGTProviderWithSSRError);
   }
   return false;
 }

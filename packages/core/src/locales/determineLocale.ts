@@ -1,6 +1,5 @@
 import { _isValidLocale, _standardizeLocale } from './isValidLocale';
 import _isSameLanguage from './isSameLanguage';
-import _isSameDialect from './isSameDialect';
 import _getLocaleProperties from './getLocaleProperties';
 
 /**

@@ -43,6 +43,7 @@ export default function _isSameDialect(
 
     return true;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     return false;
   }
