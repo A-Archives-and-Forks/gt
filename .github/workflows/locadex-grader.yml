@@ -61,7 +61,7 @@ jobs:
       # Step 7: Build and link Locadex package
       - name: Build and Link Locadex Package
         run: |
-          cd locadex
+          cd packages/locadex
           npm install
           npm link @generaltranslation/gtx-cli
           npm run build
