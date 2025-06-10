@@ -13,20 +13,20 @@ description: How to use General Translation's Locadex tool
 
 ### 1. Configure API Keys
 
-Before running Locadex, you need to configure your API keys. You can set them as environment variables in your terminal:
+Before running Locadex, you need to configure your API keys. The easiest way is to create a `.env` file in your project's root directory with the following content:
+
+```
+ANTHROPIC_API_KEY="<your-anthropic-api-key>"
+GT_API_KEY="<your-gt-api-key>"
+GT_PROJECT_ID="<your-gt-project-id>"
+```
+
+Alternatively, you can set them as environment variables in your terminal:
 
 ```bash title="Terminal"
 export ANTHROPIC_API_KEY="<your-anthropic-api-key>"
 export GT_API_KEY="<your-gt-api-key>"
 export GT_PROJECT_ID="<your-gt-project-id>"
-```
-
-Alternatively, you can create a `.env` file in your project's root directory with the following content:
-
-```bash title=".env"
-ANTHROPIC_API_KEY="<your-anthropic-api-key>"
-GT_API_KEY="<your-gt-api-key>"
-GT_PROJECT_ID="<your-gt-project-id>"
 ```
 
 ### 2. Run Locadex
@@ -44,21 +44,21 @@ This single command will handle everything for you:
 
 ---
 
-## Individual Commands
+## Setting Up for Internationalization
 
 For more granular control, you can also run the `setup` and `i18n` commands separately.
 
 ### Initialize Project
 
-This command initializes internationalization in your project, setting up required configuration files.
+This command initializes internationalization in your project, setting up required configuration files. This includes adding a `<LocaleSelector>` component to your layout and wrapping your configuration with `withGTConfig()` to enable multilingual support.
 
 ```bash
 npx locadex setup
 ```
 
-### Get AI Assistance
+### Internationalize Project
 
-This command launches the AI-powered assistant for internationalization tasks.
+This command launches the AI-powered assistant for internationalization tasks. The assistant will guide you through your code, replacing hard-coded text with `<T>` components to make your content ready for translation.
 
 ```bash
 npx locadex i18n
