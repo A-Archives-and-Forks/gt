@@ -39,7 +39,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '23'
           cache: 'npm'
 
       # Step 5: Build and link CLI package
@@ -55,7 +55,7 @@ jobs:
         run: |
           cd locadex
           npm install
-          npm link @generaltranslation/cli
+          npm link @generaltranslation/gtx-cli
           npm run build
           npm link
 
